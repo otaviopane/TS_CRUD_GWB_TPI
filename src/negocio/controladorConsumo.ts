@@ -5,6 +5,7 @@ import Empresa from "../modelo/empresa/empresa"
 import Produto from "../modelo/empresa/produto"
 import Servico from "../modelo/empresa/servico"
 import Cadastro from "./cadastro"
+import Listagem from "./listagem"
 
 export class RegistroConsumo extends Cadastro {
    public clientes: Array<Cliente>
@@ -31,10 +32,10 @@ export class RegistroConsumo extends Cadastro {
       let listaProdutos: Array<Produto> = []
       let enquantoServico = true
       do {
+         let nomeServico = this.entrada.receberTexto(`\nPor favor, digite o nome do serviço: \n`)
          let enquantoServ = this.entrada.receberNumero(`\nPor favor, digite o número da escolha:
             0 - Sem adição de Serviços
             1 - Adicionar novo Serviço\n`)
-         let nomeServico = this.entrada.receberTexto(`\nPor favor, digite o nome do serviço: \n`)
          this.servicos.forEach(servico => {
             if (nomeServico == servico.nome) {
                listaServicos.push(servico)
@@ -44,10 +45,10 @@ export class RegistroConsumo extends Cadastro {
       } while (enquantoServico)
       let enquantoProduto = true
       do {
+         let nomeProduto = this.entrada.receberTexto(`\nPor favor, digite o nome do produto: \n`)
          let enquantoProd = this.entrada.receberNumero(`\nPor favor, digite o número da escolha:
             0 - Sem adição de Produtos
             1 - Adicionar novo Produto \n`)
-         let nomeProduto = this.entrada.receberTexto(`\nPor favor, digite o nome do produto: \n`)
          this.produtos.forEach(produto => {
             if (nomeProduto == produto.nome) {
                listaProdutos.push(produto)
@@ -63,9 +64,103 @@ export class RegistroConsumo extends Cadastro {
          listaServicos,
          listaProdutos
       )
-      clienteSelecionado[0].listaConsumos.push(consumo)
+      clienteSelecionado[0].consumos.push(consumo)
    }
 }
+
+
+// CRUD - READ
+export class ListagemConsumos extends Listagem {
+   private consumos: Array<Consumo>
+   constructor(consumos: Array<Consumo>) {
+      super()
+      this.consumos = consumos
+   }
+
+   public listar(): void {
+      console.log(`\nListagem dos consumos disponiveis`)
+      this.consumos.forEach(consumo => {
+         console.log(`--------------------------------------`);
+         console.log(`Data: ` + consumo.data);
+         console.log(`Cpf do Consumidor: ` + consumo.clienteCpf);
+         console.log(`Serviço: ` + consumo.servico);
+         console.log(`Produto: ` + consumo.produto);
+         console.log(`Produto: ` + consumo.quantiServico);
+         console.log(`Produto: ` + consumo.quantiProduto);
+      });
+      console.log(`\n`);
+   }
+}
+
+// CRUD - READ - ÚNICO
+export class SelecionaConsumo extends Listagem {
+   private consumos: Array<Consumo>
+   private entrada: Entrada
+   constructor(consumos: Array<Consumo>) {
+      super()
+      this.consumos = consumos
+      this.entrada = new Entrada()
+   }
+   public listar(): void {
+      console.log(`\nSeleção de recibo de consumo`)
+      let escolhaCpf = this.entrada.receberNumero(`Por favor informe o cpf do consumidor: `)
+      this.consumos.forEach(consumo => {
+         if (escolhaCpf == consumo.clienteCpf) {
+            console.log(`--------------------------------------`);
+            console.log(`Data: ` + consumo.data);
+            console.log(`Cpf do Consumidor: ` + consumo.clienteCpf);
+            console.log(`Serviço: ` + consumo.servico);
+            console.log(`Produto: ` + consumo.produto);
+            console.log(`Produto: ` + consumo.quantiServico);
+            console.log(`Produto: ` + consumo.quantiProduto);
+         }
+      })
+
+      console.log(`\nSeleção concluída :)\n`)
+   }
+}
+
+// CRUD - READ - 10 CLIENTES MAIS CONSUMIRAM
+export class ListaClientesMaisConsumiram extends Listagem {
+   public clientes: Array<Cliente>
+   public servicos: Array<Servico>
+   public produtos: Array<Produto>
+
+   constructor(clientes: Array<Cliente>, servicos: Array<Servico>, produtos: Array<Produto>) {
+      super()
+      this.clientes = clientes
+      this.servicos = servicos
+      this.produtos = produtos
+   }
+
+   public listar(): void {
+      let clientesMaisConsumiram: any[] = []
+      console.log(`\nOs 10 Clientes que mais consumiram`)
+      this.clientes.forEach(cliente => {
+         let cliCpf: number = cliente.getCpf
+         let cliConsumiu: number = cliente.getServicosConsumidos.length + cliente.getProdutosConsumidos.length
+         clientesMaisConsumiram.push({ cpf: cliCpf, totalConsumidos: cliConsumiu })
+      })
+
+      let clientesMaisConsumiramDecrescente: any[] = []
+      clientesMaisConsumiramDecrescente = clientesMaisConsumiram.sort((a, b) => {
+         return b.cliConsumiu - a.cliConsumiu
+      })
+
+      let dezPrimeirosConsumidores: any[] = clientesMaisConsumiramDecrescente.slice(0, 9)
+      dezPrimeirosConsumidores.forEach(consumidor => {
+         this.clientes.forEach(cliente => {
+            if (cliente.getCpf == consumidor.cpf) {
+               console.log(`Nome: ` + cliente.nome)
+               console.log(`Total Consumido: ` + cliente.consumos)
+            }
+         })
+      })
+
+      console.log(`\nSeleção concluída :)\n`)
+   }
+}
+
 
 
 // SubMenu
@@ -73,15 +168,16 @@ export class menuConsumo {
    public listarSubMenuConsumos(empresa: Empresa) {
       let execucao = true
       while (execucao) {
-         console.log(`Opções:`)
+         console.log(`\nOpções:`)
          console.log(`1 - Registro de Consumo`)
          console.log(`2 - Exibir serviço`)
-         console.log(`3 - Alterar serviço`)
-         console.log(`4 - Deletar serviço`)
-         console.log(`5 - Listar todos os serviços`)
+         console.log(`3 - Listagem dos 10 clientes mais consumiram`)
+         console.log(`4 - Listagem dos 10 clientes menos consumiram`)
+         console.log(`5 - Listagem dos 05 clientes mais gastaram`)
+         console.log(`6 - Listar todos os serviços`)
          // console.log(`6 - Listar os servicos mais consumidos`)
          // console.log(`7 - Listar os servicos mais consumidos por gênero`)
-         console.log(`0 - Sair`)
+         console.log(`0 - Sair\n`)
 
          let entrada = new Entrada()
          let opcaoConsumo = entrada.receberNumero(`\nPor favor, escolha uma opção: `)
@@ -90,22 +186,29 @@ export class menuConsumo {
                let registroConsumo = new RegistroConsumo(empresa.getClientes, empresa.getServicos, empresa.getProdutos)
                registroConsumo.cadastrar()
                break;
-            // case 2:
-            //    let selecionaProduto = new SelecionaProduto(empresa.getProdutos)
-            //    selecionaProduto.listar()
-            //    break;
-            // case 3:
-            //    let alteraProduto = new AlteraProduto(empresa.getProdutos)
-            //    alteraProduto.atualizar()
-            //    break;
+            case 2:
+               let selecionaConsumo = new SelecionaConsumo(empresa.consumos)
+               selecionaConsumo.listar()
+               break;
+            case 3:
+               let listaClientesMaisConsumiram = new ListaClientesMaisConsumiram(empresa.getClientes, empresa.getServicos, empresa.getProdutos)
+               listaClientesMaisConsumiram.listar()
+               break;
             // case 4:
             //    let deletaProduto = new DeletaProduto(empresa)
             //    deletaProduto.deletar()
             //    break;
-            // case 5:
-            //    let listagemProdutos = new ListagemProdutos(empresa.getProdutos)
-            //    listagemProdutos.listar()
-            //    break;
+            case 5:
+               let listagemConsumos = new ListagemConsumos(empresa.consumos)
+               listagemConsumos.listar()
+               break;
+
+            case 0:
+               execucao = false
+               console.log(`Até mais\n`)
+               break;
+            default:
+               console.log(`Operação não entendida :(`)
          }
       }
    }

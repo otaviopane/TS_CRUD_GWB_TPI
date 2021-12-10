@@ -137,7 +137,7 @@ export class menuServico {
    public listarSubMenuServicos(empresa: Empresa) {
       let execucao = true
       while (execucao) {
-         console.log(`Opções:`)
+         console.log(`\nOpções:`)
          console.log(`1 - Cadastrar serviço`)
          console.log(`2 - Exibir serviço`)
          console.log(`3 - Alterar serviço`)
@@ -145,7 +145,7 @@ export class menuServico {
          console.log(`5 - Listar todos os serviços`)
          // console.log(`6 - Listar os servicos mais consumidos`)
          // console.log(`7 - Listar os servicos mais consumidos por gênero`)
-         console.log(`0 - Sair`)
+         console.log(`0 - Sair\n`)
 
 
          let entrada = new Entrada()
@@ -189,7 +189,7 @@ export class menuServico {
             //     break;
             case 0:
                execucao = false
-               console.log(`Até mais`)
+               console.log(`Até mais\n`)
                break;
             default:
                console.log(`Operação não entendida :(`)

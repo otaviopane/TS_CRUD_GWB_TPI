@@ -13,7 +13,7 @@ let execucao = true
 registroBase.cadastrar()
 
 while (execucao) {
-    console.log(`Menu de Opções:`)
+    console.log(`\nMenu de Opções:`)
     console.log(`1 - Clientes`)
     console.log(`2 - Serviços`)
     console.log(`3 - Produtos`)
@@ -28,7 +28,7 @@ while (execucao) {
     console.log(`0 - Sair\n`);
 
     let entrada = new Entrada()
-    let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
+    let opcao = entrada.receberNumero(`Por favor, escolha uma opção: \n`)
 
     switch (opcao) {
         case 1:
@@ -73,7 +73,7 @@ while (execucao) {
         //     break;
         case 0:
             execucao = false
-            console.log(`Até mais`)
+            console.log(`Até mais\n`)
             break;
         default:
             console.log(`Operação não entendida :(`)

@@ -136,7 +136,7 @@ export class menuProduto {
    public listarSubMenuProdutos(empresa: Empresa) {
       let execucao = true
       while (execucao) {
-         console.log(`Opções:`)
+         console.log(`\nOpções:`)
          console.log(`1 - Cadastrar produto`)
          console.log(`2 - Exibir produto`)
          console.log(`3 - Alterar produto`)
@@ -144,7 +144,7 @@ export class menuProduto {
          console.log(`5 - Listar todos os produtos`)
          // console.log(`6 - Listar os produtos mais consumidos`)
          // console.log(`7 - Listar os produtos mais consumidos por gênero`)
-         console.log(`0 - Sair`)
+         console.log(`0 - Sair\n`)
 
 
          let entrada = new Entrada()
@@ -188,7 +188,7 @@ export class menuProduto {
             //     break;
             case 0:
                execucao = false
-               console.log(`Até mais`)
+               console.log(`Até mais\n`)
                break;
             default:
                console.log(`Operação não entendida :(`)

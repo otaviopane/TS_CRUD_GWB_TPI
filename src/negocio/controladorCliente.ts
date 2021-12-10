@@ -1,6 +1,5 @@
 import Entrada from "../app/entrada"
 import Cliente from "../modelo/cliente/cliente"
-import Telefone from "../modelo/cliente/telefone"
 import Empresa from "../modelo/empresa/empresa"
 import Atualizacao from "./atualizacao"
 import Cadastro from "./cadastro"
@@ -43,13 +42,9 @@ export class ListagemClientes extends Listagem {
     public listar(): void {
         console.log(`\nLista de todos os clientes:`);
         this.clientes.forEach(cliente => {
-            let telefoneImpressao = cliente.getTelefones.forEach((telefone) => {
-                `(${telefone.getDdd}) ${telefone.getNumero}` // <---- TENTAAAAANDOOOOOO ISSO AINDA!!!!
-            })
             console.log(`--------------------------------------`);
             console.log(`Nome: ` + cliente.nome)
             console.log(`Nome social: ` + cliente.nomeSocial)
-            console.log(`Telefones: ` + telefoneImpressao)
             console.log(`CPF: ` + cliente.getCpf)
             console.log(`Gênero: ` + cliente.genero)
         })
@@ -74,7 +69,6 @@ export class SelecionaCliente extends Listagem {
                 console.log(`--------------------------------------`);
                 console.log(`Nome: ` + cliente.nome);
                 console.log(`Nome social: ` + cliente.nomeSocial)
-                // console.log(`Telefones: ` + telefoneImpressao) <-------
                 console.log(`CPF: ` + cliente.getCpf)
                 console.log(`Gênero: ` + cliente.genero)
             }
@@ -102,7 +96,6 @@ export class SelecionaClienteGenero extends Listagem {
                 console.log(`Gênero: ` + cliente.genero)
                 console.log(`Nome: ` + cliente.nome);
                 console.log(`Nome social: ` + cliente.nomeSocial)
-                // console.log(`Telefones: ` + telefoneImpressao) <-------
                 console.log(`CPF: ` + cliente.getCpf)
             }
         })
@@ -110,32 +103,6 @@ export class SelecionaClienteGenero extends Listagem {
         console.log(`\nSeleção concluída :)\n`)
     }
 }
-
-// CRUD - READ - TODOS GENEROS
-// export class ListaTodosClientesGenero extends Listagem {
-//     private clientes: Array<Cliente>
-//     constructor(clientes: Array<Cliente>) {
-//         super()
-//         this.clientes = clientes
-//     }
-//     public listar(): void {
-//         console.log(`\nLista de todos os clientes:`);
-//         let clientesOrdenados = this.clientes.sort(Cliente[3])
-//         this.clientes.forEach(cliente => {
-//             let telefoneImpressao = cliente.getTelefones.forEach((telefone) => {
-//                 `(${telefone.getDdd}) ${telefone.getNumero}` // <---- TENTAAAAANDOOOOOO ISSO AINDA!!!!
-//             })
-//             console.log(`--------------------------------------`);
-//             console.log(`Nome: ` + cliente.nome)
-//             console.log(`Nome social: ` + cliente.nomeSocial)
-//             console.log(`Telefones: ` + telefoneImpressao)
-//             console.log(`CPF: ` + cliente.getCpf)
-//             console.log(`Gênero: ` + cliente.genero)
-//         })
-//         console.log(`\nLeitura concluída :)\n`)
-//     }
-// }
-
 
 // CRUD - UPDATE
 export class AlteraCliente extends Atualizacao {
@@ -224,18 +191,18 @@ export class menuCliente {
     public listarSubMenuClientes(empresa: Empresa) {
         let execucao = true
         while (execucao) {
-            console.log(`-----  Opções:  -----`)
+            console.log(`\nOpções:`)
             console.log(`1 - Cadastrar cliente`)
             console.log(`2 - Exibir o cliente`)
             console.log(`3 - Alterar cliente`)
             console.log(`4 - Deletar cliente`)
             console.log(`5 - Listar todos os clientes`)
             console.log(`6 - Listar clientes de um gênero`)
-            console.log(`7 - Listar todos os clientes por gênero`)
-            console.log(`6 - Listar os 05 clientes que mais gastaram`)
-            console.log(`7 - Listar os 10 clientes que mais consumiram`)
-            console.log(`8 - Listar os 10 clientes que menos consumiram`)
-            console.log(`0 - Sair`)
+            // console.log(`7 - Listar todos os clientes por gênero`)
+            // console.log(`6 - Listar os 05 clientes que mais gastaram`)
+            // console.log(`7 - Listar os 10 clientes que mais consumiram`)
+            // console.log(`8 - Listar os 10 clientes que menos consumiram`)
+            console.log(`0 - Sair\n`)
 
 
             let entrada = new Entrada()
@@ -283,7 +250,7 @@ export class menuCliente {
                 //     break;
                 case 0:
                     execucao = false
-                    console.log(`Até mais`)
+                    console.log(`Até mais\n`)
                     break;
                 default:
                     console.log(`Operação não entendida :(`)
