@@ -7,12 +7,10 @@ export default class Empresa {
     private clientes: Array<Cliente>
     private produtos: Array<Produto>
     private servicos: Array<Servico>
-    // private consumos: Array<Consumo>
     constructor() {
         this.clientes = []
         this.produtos = []
         this.servicos = []
-        // this.consumos = []
     }
     public get getClientes() {
         return this.clientes
@@ -23,9 +21,7 @@ export default class Empresa {
     public get getServicos() {
         return this.servicos
     }
-    // public get getConsumos() {
-    //     return this.consumos
-    // }
+
 
     public setClientes(clientes: Array<Cliente>) {
         this.clientes = clientes

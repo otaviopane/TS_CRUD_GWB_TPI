@@ -4,30 +4,20 @@ import Servico from "./servico";
 
 export default class Consumo {
    readonly data: Date
-   public cliente: Cliente
-   public servico?: Servico
-   public produto?: Produto
+   public clienteCpf: number
+   public servico?: Array<Servico>
+   public produto?: Array<Produto>
    public quantiServico: number
    public quantiProduto: number
 
 
 
-   constructor(data: Date, cliente: Cliente, servico: Servico, quantiServico: number, quantiProduto: number) {
+   constructor(data: Date, clienteCpf: number, quantiServico: number, quantiProduto: number, servico?: Array<Servico>, produto?: Array<Produto>) {
       this.data = data
-      this.cliente = cliente
+      this.clienteCpf = clienteCpf
       this.servico = servico
+      this.produto = produto
       this.quantiServico = quantiServico
       this.quantiProduto = quantiProduto
-   }
-
-
-   public get getCliente(): Cliente {
-      return this.cliente
-   }
-   public get getServico(): Servico {
-      return this.servico!
-   }
-   public get getProduto(): Produto {
-      return this.produto!
    }
 }

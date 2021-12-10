@@ -20,9 +20,7 @@ export class CadastroServico extends Cadastro {
       console.log(`\nInicio do cadastro de um serviço`)
       let nomeServico = this.entrada.receberTexto(`Por favor, digite um nome para o serviço a ser cadastrado: `)
       let precoServico = this.entrada.receberNumero(`Por favor, digite o preço para o serviço a ser cadastrado: `)
-      let servico = new Servico()
-      servico.nome = nomeServico
-      servico.preco = precoServico
+      let servico = new Servico(nomeServico, precoServico)
       this.servicos.push(servico)
    }
 }

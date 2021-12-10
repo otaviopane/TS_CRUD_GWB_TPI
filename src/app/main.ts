@@ -1,12 +1,16 @@
 import Empresa from "../modelo/empresa/empresa";
 import { menuCliente } from "../negocio/controladorCliente";
+import { menuConsumo } from "../negocio/controladorConsumo";
 import { menuProduto } from "../negocio/controladorProduto";
-import { ListagemServicos, menuServico } from "../negocio/controladorServico";
+import { menuServico } from "../negocio/controladorServico";
 import Entrada from "./entrada";
+import { RegistrosBase } from "./registros";
 
 console.log(`Bem-vindo ao Grupo World Beauty`)
 let empresa = new Empresa()
+let registroBase = new RegistrosBase(empresa.getClientes, empresa.getProdutos, empresa.getServicos)
 let execucao = true
+registroBase.cadastrar()
 
 while (execucao) {
     console.log(`Menu de Opções:`)
@@ -40,8 +44,8 @@ while (execucao) {
             subMenuProd.listarSubMenuProdutos(empresa)
             break;
         case 4:
-            let listagemServicos = new ListagemServicos(empresa.getServicos)
-            listagemServicos.listar()
+            let subMenuCons = new menuConsumo()
+            subMenuCons.listarSubMenuConsumos(empresa)
             break;
         // case 5:
         //     let listagemClientesMaisGastaram = new ListagemClientesMaisGastaram (empresa.getConsumos) // <--- 6) 5 + gastadores

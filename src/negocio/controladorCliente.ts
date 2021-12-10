@@ -149,44 +149,46 @@ export class AlteraCliente extends Atualizacao {
     public atualizar(): void {
         console.log(`\nAlteração de cadastro do cliente`)
         let escolhaCPF = this.entrada.receberNumero(`Por favor informe o número do cpf do cliente que quer alterar: `)
+        let clienteEncontrado
         this.clientes.forEach((cliente) => {
             if (escolhaCPF == cliente.getCpf) {
-                console.log(`\nAlteração de cadastro do cliente escolhido:`);
-                let atualizarEscolha = this.entrada.receberNumero(`
-                \nPor favor escolha uma opção de alteração:
-                1 - Nome
-                2 - NomeSocial
-                3 - Gênero
-                4 - Adicionar Telefone
-                5 - Remover Telefone\n`)
-                switch (atualizarEscolha) {
-                    case 1:
-                        let nomeAtualizado = this.entrada.receberTexto('Por favor digite o nome atualizado: ')
-                        cliente.setNome(nomeAtualizado)
-                        break;
-                    case 2:
-                        let nomeSocialAtualizado = this.entrada.receberTexto('Por favor digite o nome social atualizado: ')
-                        cliente.setNomeSocial(nomeSocialAtualizado)
-                        break;
-                    case 3:
-                        let generoAtualizado = this.entrada.receberTexto('Por favor digite o gênero atualizado (F/M/NB): ')
-                        cliente.setGenero(generoAtualizado)
-                        break;
-                    case 4:
-                        let dddA = this.entrada.receberNumero('Por favor digite o ddd do telefone adicionado: ')
-                        let numeroA = this.entrada.receberNumero('Por favor digite o numero do telefone adicionado: ')
-                        cliente.adicionarTelefone(dddA, numeroA)
-                        break;
-                    case 5:
-                        let dddR = this.entrada.receberNumero('Por favor digite o ddd do telefone removido: ')
-                        let numeroR = this.entrada.receberNumero('Por favor digite o numero do telefone removido: ')
-                        cliente.removerTelefone(dddR, numeroR)
-                        break;
-                }
+                clienteEncontrado = cliente
             } else {
                 console.log(`CPF de cliente não encontrado!`)
             }
         })
+        console.log(`\nAlteração de cadastro do cliente escolhido:`);
+        let atualizarEscolha = this.entrada.receberNumero(`
+        \nPor favor escolha uma opção de alteração:
+        1 - Nome
+        2 - NomeSocial
+        3 - Gênero
+        4 - Adicionar Telefone
+        5 - Remover Telefone\n`)
+        switch (atualizarEscolha) {
+            case 1:
+                let nomeAtualizado = this.entrada.receberTexto('Por favor digite o nome atualizado: ')
+                clienteEncontrado.setNome(nomeAtualizado)
+                break;
+            case 2:
+                let nomeSocialAtualizado = this.entrada.receberTexto('Por favor digite o nome social atualizado: ')
+                clienteEncontrado.setNomeSocial(nomeSocialAtualizado)
+                break;
+            case 3:
+                let generoAtualizado = this.entrada.receberTexto('Por favor digite o gênero atualizado (F/M/NB): ')
+                clienteEncontrado.setGenero(generoAtualizado)
+                break;
+            case 4:
+                let dddA = this.entrada.receberNumero('Por favor digite o ddd do telefone adicionado: ')
+                let numeroA = this.entrada.receberNumero('Por favor digite o numero do telefone adicionado: ')
+                clienteEncontrado.adicionarTelefone(dddA, numeroA)
+                break;
+            case 5:
+                let dddR = this.entrada.receberNumero('Por favor digite o ddd do telefone removido: ')
+                let numeroR = this.entrada.receberNumero('Por favor digite o numero do telefone removido: ')
+                clienteEncontrado.removerTelefone(dddR, numeroR)
+                break;
+        }
         console.log(`\nAtualização concluída :)\n`);
     }
 }
@@ -263,10 +265,10 @@ export class menuCliente {
                     let selecionaClienteGenero = new SelecionaClienteGenero(empresa.getClientes)
                     selecionaClienteGenero.listar()
                     break;
-                case 7:
-                    let listaTodosClientesGenero = new ListaTodosClientesGenero(empresa.getClientes)
-                    listaTodosClientesGenero.listar()
-                    break;
+                // case 7:
+                //     let listaTodosClientesGenero = new ListaTodosClientesGenero(empresa.getClientes)
+                //     listaTodosClientesGenero.listar()
+                //     break;
                 // case 8:
                 //     let listagemClientesMaisGastaram = new ListagemClientesMaisGastaram (empresa.getConsumos) // <--- 6) 5 + gastadores
                 //     listagemClientesMaisGastaram .listar()

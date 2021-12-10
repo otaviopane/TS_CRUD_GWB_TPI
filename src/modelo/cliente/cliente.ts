@@ -1,3 +1,4 @@
+import Consumo from "../empresa/consumo"
 import Produto from "../empresa/produto"
 import Servico from "../empresa/servico"
 import Telefone from "./telefone"
@@ -11,6 +12,7 @@ export default class Cliente {
     public telefones: Array<Telefone>
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
+    public listaConsumos: Array<Consumo>
     constructor(cpf: number, nome: string, nomeSocial: string, genero: string) {
         this.nome = nome
         this.nomeSocial = nomeSocial
@@ -20,6 +22,7 @@ export default class Cliente {
         this.telefones = []
         this.produtosConsumidos = []
         this.servicosConsumidos = []
+        this.listaConsumos = []
     }
     // Get
     public get getCpf(): number {
