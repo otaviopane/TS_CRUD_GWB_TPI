@@ -8,12 +8,12 @@ export default class Empresa {
     private clientes: Array<Cliente>
     private produtos: Array<Produto>
     private servicos: Array<Servico>
-    public consumos: Array<Consumo> // <--- NA VERDADE ESTÁ NO CLIENTE
+    public consumos: Array<Consumo>
     constructor() {
         this.clientes = []
         this.produtos = []
         this.servicos = []
-        this.consumos = [] // <--- NA VERDADE ESTÁ NO CLIENTE
+        this.consumos = []
     }
     public get getClientes() {
         return this.clientes

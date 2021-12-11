@@ -196,12 +196,8 @@ export class menuCliente {
             console.log(`2 - Exibir o cliente`)
             console.log(`3 - Alterar cliente`)
             console.log(`4 - Deletar cliente`)
-            console.log(`5 - Listar todos os clientes`)
-            console.log(`6 - Listar clientes de um gênero`)
-            // console.log(`7 - Listar todos os clientes por gênero`)
-            // console.log(`6 - Listar os 05 clientes que mais gastaram`)
-            // console.log(`7 - Listar os 10 clientes que mais consumiram`)
-            // console.log(`8 - Listar os 10 clientes que menos consumiram`)
+            console.log(`5 - Listar todos clientes por gênero`)
+            console.log(`6 - Listar todos os clientes`)
             console.log(`0 - Sair\n`)
 
 
@@ -225,29 +221,13 @@ export class menuCliente {
                     deletaCliente.deletar()
                     break;
                 case 5:
-                    let listagemClientes = new ListagemClientes(empresa.getClientes)
-                    listagemClientes.listar()
-                    break;
-                case 6:
                     let selecionaClienteGenero = new SelecionaClienteGenero(empresa.getClientes)
                     selecionaClienteGenero.listar()
                     break;
-                // case 7:
-                //     let listaTodosClientesGenero = new ListaTodosClientesGenero(empresa.getClientes)
-                //     listaTodosClientesGenero.listar()
-                //     break;
-                // case 8:
-                //     let listagemClientesMaisGastaram = new ListagemClientesMaisGastaram (empresa.getConsumos) // <--- 6) 5 + gastadores
-                //     listagemClientesMaisGastaram .listar()
-                //     break;
-                // case 9:
-                //     let listagemClientesMaisConsumiram = new ListagemClientesMaisConsumiram (empresa.getConsumos) // <--- 1) 10 + consumidores
-                //     listagemClientesMaisConsumiram .listar()
-                //     break;
-                // case 10:
-                //     let listagemClientesMenosConsumiram = new ListagemClientesMenosConsumiram (empresa.getConsumos ) // <--- 5) 10 - consumidores
-                //     listagemClientesMenosConsumiram .listar()
-                //     break;
+                case 6:
+                    let listagemClientes = new ListagemClientes(empresa.getClientes)
+                    listagemClientes.listar()
+                    break;
                 case 0:
                     execucao = false
                     console.log(`Até mais\n`)

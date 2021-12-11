@@ -1,4 +1,5 @@
 import Entrada from "../app/entrada"
+import Cliente from "../modelo/cliente/cliente"
 import Empresa from "../modelo/empresa/empresa"
 import Servico from "../modelo/empresa/servico"
 import Atualizacao from "./atualizacao"
@@ -67,7 +68,6 @@ export class SelecionaServico extends Listagem {
       console.log(`\nSeleção concluída :)\n`)
    }
 }
-
 
 
 // CRUD - UPDATE
@@ -143,8 +143,6 @@ export class menuServico {
          console.log(`3 - Alterar serviço`)
          console.log(`4 - Deletar serviço`)
          console.log(`5 - Listar todos os serviços`)
-         // console.log(`6 - Listar os servicos mais consumidos`)
-         // console.log(`7 - Listar os servicos mais consumidos por gênero`)
          console.log(`0 - Sair\n`)
 
 
@@ -171,22 +169,6 @@ export class menuServico {
                let listagemServicos = new ListagemServicos(empresa.getServicos)
                listagemServicos.listar()
                break;
-            // case 5:
-            //     let listagemClientesGeneros = new ListagemClientesGeneros(clientes)
-            //     listagemClientesGeneros.listar()
-            //     break;
-            // case 6:
-            //     let listagemClientesMaisGastaram = new ListagemClientesMaisGastaram (empresa.getConsumos) // <--- 6) 5 + gastadores
-            //     listagemClientesMaisGastaram .listar()
-            //     break;
-            // case 7:
-            //     let listagemClientesMaisConsumiram = new ListagemClientesMaisConsumiram (empresa.getConsumos) // <--- 1) 10 + consumidores
-            //     listagemClientesMaisConsumiram .listar()
-            //     break;
-            // case 8:
-            //     let listagemClientesMenosConsumiram = new ListagemClientesMenosConsumiram (empresa.getConsumos ) // <--- 5) 10 - consumidores
-            //     listagemClientesMenosConsumiram .listar()
-            //     break;
             case 0:
                execucao = false
                console.log(`Até mais\n`)

@@ -7,6 +7,7 @@ import Servico from "../modelo/empresa/servico"
 import Cadastro from "./cadastro"
 import Listagem from "./listagem"
 
+// CRUD - CREATE
 export class RegistroConsumo extends Cadastro {
    public clientes: Array<Cliente>
    public servicos: Array<Servico>
@@ -21,7 +22,6 @@ export class RegistroConsumo extends Cadastro {
       this.entrada = new Entrada()
    }
 
-   // CRUD - CREATE
    public cadastrar(): void {
       console.log(`\nInicio do registro de um consumo`)
       let cpfCliente = this.entrada.receberNumero(`\nPor favor, digite o cpf do cliente que consumiu: \n`)
@@ -139,15 +139,57 @@ export class ListaClientesMaisConsumiram extends Listagem {
       this.clientes.forEach(cliente => {
          let cliCpf: number = cliente.getCpf
          let cliConsumiu: number = cliente.getServicosConsumidos.length + cliente.getProdutosConsumidos.length
-         clientesMaisConsumiram.push({ cpf: cliCpf, totalConsumidos: cliConsumiu })
+         clientesMaisConsumiram.push({ totalConsumidos: cliConsumiu, cpf: cliCpf })
       })
 
       let clientesMaisConsumiramDecrescente: any[] = []
       clientesMaisConsumiramDecrescente = clientesMaisConsumiram.sort((a, b) => {
-         return b.cliConsumiu - a.cliConsumiu
+         return b.cliConsumiu > a.cliConsumiu ? 1 : b.cliConsumiu < a.cliConsumiu ? -1 : 0
       })
 
       let dezPrimeirosConsumidores: any[] = clientesMaisConsumiramDecrescente.slice(0, 9)
+      dezPrimeirosConsumidores.forEach(consumidor => {
+         this.clientes.forEach(cliente => {
+            if (cliente.getCpf == consumidor.cpf) {
+               console.log(`Nome: ` + cliente.nome)
+               console.log(`Total Consumido: ` + (cliente.getServicosConsumidos.length + cliente.getProdutosConsumidos.length))
+            }
+         })
+      })
+
+      console.log(`\nSeleção concluída :)\n`)
+   }
+}
+
+
+// CRUD - READ - 10 CLIENTES MENOS CONSUMIRAM
+export class ListaClientesMenosConsumiram extends Listagem {
+   public clientes: Array<Cliente>
+   public servicos: Array<Servico>
+   public produtos: Array<Produto>
+
+   constructor(clientes: Array<Cliente>, servicos: Array<Servico>, produtos: Array<Produto>) {
+      super()
+      this.clientes = clientes
+      this.servicos = servicos
+      this.produtos = produtos
+   }
+
+   public listar(): void {
+      let clientesMenosConsumiram: any[] = []
+      console.log(`\nOs 10 Clientes que mais consumiram`)
+      this.clientes.forEach(cliente => {
+         let cliCpf: number = cliente.getCpf
+         let cliConsumiu: number = cliente.getServicosConsumidos.length + cliente.getProdutosConsumidos.length
+         clientesMenosConsumiram.push({ totalConsumidos: cliConsumiu, cpf: cliCpf })
+      })
+
+      let clientesMenosConsumiramCrescente: any[] = []
+      clientesMenosConsumiramCrescente = clientesMenosConsumiram.sort((a, b) => {
+         return b.cliConsumiu < a.cliConsumiu ? 1 : b.cliConsumiu > a.cliConsumiu ? -1 : 0
+      })
+
+      let dezPrimeirosConsumidores: any[] = clientesMenosConsumiramCrescente.slice(0, 9)
       dezPrimeirosConsumidores.forEach(consumidor => {
          this.clientes.forEach(cliente => {
             if (cliente.getCpf == consumidor.cpf) {
@@ -161,8 +203,6 @@ export class ListaClientesMaisConsumiram extends Listagem {
    }
 }
 
-
-
 // SubMenu
 export class menuConsumo {
    public listarSubMenuConsumos(empresa: Empresa) {
@@ -171,12 +211,9 @@ export class menuConsumo {
          console.log(`\nOpções:`)
          console.log(`1 - Registro de Consumo`)
          console.log(`2 - Exibir serviço`)
-         console.log(`3 - Listagem dos 10 clientes mais consumiram`)
-         console.log(`4 - Listagem dos 10 clientes menos consumiram`)
-         console.log(`5 - Listagem dos 05 clientes mais gastaram`)
-         console.log(`6 - Listar todos os serviços`)
-         // console.log(`6 - Listar os servicos mais consumidos`)
-         // console.log(`7 - Listar os servicos mais consumidos por gênero`)
+         console.log(`3 - Listar todos os serviços`)
+         console.log(`4 - Listagem dos 10 clientes mais consumiram`)
+         console.log(`5 - Listagem dos 10 clientes menos consumiram`)
          console.log(`0 - Sair\n`)
 
          let entrada = new Entrada()
@@ -191,18 +228,17 @@ export class menuConsumo {
                selecionaConsumo.listar()
                break;
             case 3:
-               let listaClientesMaisConsumiram = new ListaClientesMaisConsumiram(empresa.getClientes, empresa.getServicos, empresa.getProdutos)
-               listaClientesMaisConsumiram.listar()
-               break;
-            // case 4:
-            //    let deletaProduto = new DeletaProduto(empresa)
-            //    deletaProduto.deletar()
-            //    break;
-            case 5:
                let listagemConsumos = new ListagemConsumos(empresa.consumos)
                listagemConsumos.listar()
                break;
-
+            case 4:
+               let listaClientesMaisConsumiram = new ListaClientesMaisConsumiram(empresa.getClientes, empresa.getServicos, empresa.getProdutos)
+               listaClientesMaisConsumiram.listar()
+               break;
+            case 5:
+               let listaClientesMenosConsumiram = new ListaClientesMenosConsumiram(empresa.getClientes, empresa.getServicos, empresa.getProdutos)
+               listaClientesMenosConsumiram.listar()
+               break;
             case 0:
                execucao = false
                console.log(`Até mais\n`)

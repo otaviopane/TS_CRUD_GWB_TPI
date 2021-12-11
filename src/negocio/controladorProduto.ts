@@ -142,8 +142,6 @@ export class menuProduto {
          console.log(`3 - Alterar produto`)
          console.log(`4 - Deletar produto`)
          console.log(`5 - Listar todos os produtos`)
-         // console.log(`6 - Listar os produtos mais consumidos`)
-         // console.log(`7 - Listar os produtos mais consumidos por gênero`)
          console.log(`0 - Sair\n`)
 
 
@@ -170,22 +168,6 @@ export class menuProduto {
                let listagemProdutos = new ListagemProdutos(empresa.getProdutos)
                listagemProdutos.listar()
                break;
-            // case 5:
-            //     let listagemClientesGeneros = new ListagemClientesGeneros(clientes)
-            //     listagemClientesGeneros.listar()
-            //     break;
-            // case 6:
-            //     let listagemClientesMaisGastaram = new ListagemClientesMaisGastaram (empresa.getConsumos) // <--- 6) 5 + gastadores
-            //     listagemClientesMaisGastaram .listar()
-            //     break;
-            // case 7:
-            //     let listagemClientesMaisConsumiram = new ListagemClientesMaisConsumiram (empresa.getConsumos) // <--- 1) 10 + consumidores
-            //     listagemClientesMaisConsumiram .listar()
-            //     break;
-            // case 8:
-            //     let listagemClientesMenosConsumiram = new ListagemClientesMenosConsumiram (empresa.getConsumos ) // <--- 5) 10 - consumidores
-            //     listagemClientesMenosConsumiram .listar()
-            //     break;
             case 0:
                execucao = false
                console.log(`Até mais\n`)

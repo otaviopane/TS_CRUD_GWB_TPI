@@ -8,30 +8,23 @@ export default class Cliente {
     public nomeSocial: string
     public genero: string
     private cpf: number
-    private dataCadastro: Date
     public telefones: Array<Telefone>
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
-    private totalConsumidos: number
     public consumos: Array<Consumo>
     constructor(cpf: number, nome: string, nomeSocial: string, genero: string) {
         this.nome = nome
         this.nomeSocial = nomeSocial
         this.genero = genero
         this.cpf = cpf
-        this.dataCadastro = new Date()
         this.telefones = []
         this.produtosConsumidos = []
         this.servicosConsumidos = []
-        this.totalConsumidos = 0
         this.consumos = []
     }
     // Get
     public get getCpf(): number {
         return this.cpf
-    }
-    public get getDataCadastro(): Date {
-        return this.dataCadastro
     }
     public get getTelefones(): Array<Telefone> {
         return this.telefones
